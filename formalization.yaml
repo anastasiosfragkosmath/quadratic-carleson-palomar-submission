@@ -26,6 +26,19 @@ sources:
     location: "Theorems 1 and 2"
     relationship: "formalizes"
 
+
+related_formalizations:
+  - id: "https://github.com/anastasiosfragkosmath/lean-verification-quadratic-carleson/tree/3611a2ba0b28f135680156290f63ec72a3acd77e"
+    relationship: "other"
+    note: >-
+      This repository is a Palomar-prepared copy of the substantive Lean
+      development at commit 3611a2ba0b28f135680156290f63ec72a3acd77e.
+      Its core formalization source (`QuadraticCarleson.lean` and
+      `QuadraticCarleson/`) is byte-for-byte identical to that revision.
+      This repository adds the submission-specific Challenge/Solution statement
+      surface, Comparator configuration, CI preflight, and metadata/documentation;
+      it does not claim an independent formalization.
+
 classification:
   arxiv: ["math.CA", "math.FA"]
   msc2020: ["42B20"]
