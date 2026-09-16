@@ -9,7 +9,7 @@ build and axiom evidence in [the verification report](verification-report.md).
 ## Headline results
 
 The public review entry point is
-[`QuadraticCarleson/PaperTheorems.lean`](../QuadraticCarleson/PaperTheorems.lean).
+[`QuadraticCarleson/PaperTheorems.lean`](QuadraticCarleson/PaperTheorems.lean).
 Its headline declarations have the following correspondence.
 
 | Article result | Lean declarations | Scope of the written Lean statements |
@@ -55,6 +55,6 @@ according to that hypothesis; it is not evidence that the hypothesis has been
 proved elsewhere in this repository.
 
 For the exact Lean types and their imports, inspect
-[`QuadraticCarleson/PaperTheorems.lean`](../QuadraticCarleson/PaperTheorems.lean).
+[`QuadraticCarleson/PaperTheorems.lean`](QuadraticCarleson/PaperTheorems.lean).
 For reproducible build and audit commands, see the
 [verification report](verification-report.md).
