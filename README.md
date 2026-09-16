@@ -32,7 +32,7 @@ and source-policy checks.
 
 This repository reports local Lean verification: the included proofs are
 checked by Lean's kernel with the pinned toolchain. The
-[verification report](docs/verification-report.md) records the scope and
+[verification report](verification-report.md) records the scope and
 reproducible evidence for that claim.
 
 ## Main Lean declarations
@@ -47,7 +47,7 @@ three principal exports are:
 
 The module also exports the full-modulation negative consequence, the explicit
 counterexamples, weak-`(1,1)` corollaries, measurability, and the finite
-modulation block estimate. The [semantic audit](docs/semantic-audit.md)
+modulation block estimate. The [semantic audit](semantic-audit.md)
 documents the precise correspondence and any Lean-level formulation details.
 
 ## Build and verify
@@ -82,8 +82,8 @@ Each printed declaration depends only on `propext`, `Classical.choice`, and
 ## Navigation
 
 - [Paper-facing theorem statements](QuadraticCarleson/PaperTheorems.lean)
-- [Local verification report](docs/verification-report.md)
-- [Semantic comparison with the paper](docs/semantic-audit.md)
+- [Local verification report](verification-report.md)
+- [Semantic comparison with the paper](semantic-audit.md)
 
 ## License
 
