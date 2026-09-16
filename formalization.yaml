@@ -94,9 +94,20 @@ automation:
 fidelity:
   divergences: >-
     Challenge and Solution use an isolated statement namespace for independent
-    comparison. The corresponding declarations are definitionally transported
-    from the substantive source declarations; no intended mathematical
-    divergence is claimed for the four compared theorem types.
+    comparison, with declarations definitionally transported from the
+    substantive source development. The four compared endpoint claims use the
+    following Lean-level conventions: principalValueRepresentative returns the
+    genuine principal value where it exists and zero otherwise; the positive
+    theorems additionally prove genuine principal-value existence almost
+    everywhere, simultaneously for every modulation in their respective
+    ranges; level-set measures and modular integrals use Lean's
+    ENNReal-valued volume and lintegral representations; Young functions are
+    represented as real functions constrained on nonnegative inputs; and the
+    full-modulation negative conclusion is recorded as a separate compared
+    declaration although presented in the paper as a consequence of the
+    lacunary result. These are faithful representation and
+    statement-organization conventions, not claims of a different endpoint
+    result.
 
 review:
   status: "self-assessed"
