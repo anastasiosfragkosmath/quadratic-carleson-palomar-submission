@@ -23,6 +23,38 @@ The first, third, and fourth rows are the three principal results highlighted
 in the README. The full-modulation negative result is the consequence paired
 with the lacunary negative theorem in the first row.
 
+
+## Lean-level representation conventions
+
+The four compared declarations use an isolated statement namespace so that
+Comparator can compare their types independently with the substantive
+development. This is a verification arrangement, not a second mathematical
+claim.
+
+The following conventions are relevant when reading the written Lean types.
+
+- `principalValueRepresentative` returns the genuine symmetric principal
+  value when it exists and `0` otherwise, making the maximal operators total.
+  Each positive endpoint theorem additionally proves genuine principal-value
+  existence almost everywhere: on one common conull set for every real
+  modulation in the full case, and for every dyadic modulation in the lacunary
+  case. Thus the zero fallback concerns only the exceptional null set.
+- Level-set measures and modular integrals use Lean's `volume` and
+  ENNReal-valued `lintegral` representations. The modular-estimate
+  definition does not put a separate measurability field in its signature;
+  `principalValueMaxima_aemeasurable` separately records almost-everywhere
+  measurability of the two headline maximal operators.
+- A `YoungFunction` is represented as a real-valued function with its
+  regularity and growth conditions imposed on nonnegative inputs. In the
+  endpoint expressions it is evaluated at `‖f x‖ / α` with `α > 0`, hence
+  only at nonnegative arguments.
+- The article presents the full-modulation negative assertion as a consequence
+  of the lacunary result. Lean records it as a separate theorem so that it can
+  be one of the four Comparator targets.
+
+These are faithful representation and statement-organization conventions; they
+do not assert a different endpoint result from the article.
+
 ## Other article-facing declarations
 
 The development also exposes the following reviewable declarations.
