@@ -1,0 +1,120 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "Endpoint estimates for Stein's purely quadratic Carleson operator"
+  description: >-
+    A Lean 4 formalization of four principal endpoint assertions from Fragkos,
+    Krause, and Lacey's Endpoint Estimates for Stein's Purely Quadratic
+    Carleson Operator: two failures of modular estimates below t log₂ t, a
+    full-modulation L log L endpoint estimate, and a lacunary
+    L (log₂ L)² log₄ L endpoint estimate.
+  authors:
+    - "Anastasios Fragkos"
+  responsible_maintainers:
+    - "Anastasios Fragkos"
+  license: "Apache-2.0"
+
+sources:
+  - title: "Endpoint Estimates for Stein's Purely Quadratic Carleson Operator"
+    authors:
+      - "Anastasios Fragkos"
+      - "Ben Krause"
+      - "Michael Lacey"
+    id: "https://arxiv.org/abs/2609.04101v1"
+    type: "paper"
+    location: "Theorems 1 and 2"
+    relationship: "formalizes"
+
+classification:
+  arxiv: ["math.CA", "math.FA"]
+  msc2020: ["42B20"]
+
+status:
+  scope: >-
+    Comparator is configured for exactly four declarations: lacunary and full
+    failures of modular estimates below t log₂ t, the full L log L endpoint,
+    and the lacunary L (log₂ L)² log₄ L endpoint. The repository contains the
+    substantive Lean development supporting those declarations.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+  main_results:
+    - declaration: "QuadraticCarleson.StatementSurface.PaperTheorems.lacunary_sub_log2_modular_failure"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "QuadraticCarleson.StatementSurface.PaperTheorems.full_sub_log2_modular_failure"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "QuadraticCarleson.StatementSurface.PaperTheorems.full_LlogL_endpoint"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "QuadraticCarleson.StatementSurface.PaperTheorems.lacunary_log2_squared_log4_endpoint"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "Codex"
+      tool_setup: >-
+        Agent-assisted Lean development and repository preparation. Exact
+        historical model and cost records were not retained.
+    - method: "manual"
+      framework: "Lean 4"
+      tool_setup: >-
+        Human-directed mathematical scope, statement selection, review, and
+        repository maintenance.
+  notes: >-
+    Automation disclosures describe the development process; they do not
+    identify AI systems as authors or maintainers.
+
+fidelity:
+  divergences: >-
+    Challenge and Solution use an isolated statement namespace for independent
+    comparison. The corresponding declarations are definitionally transported
+    from the substantive source declarations; no intended mathematical
+    divergence is claimed for the four compared theorem types.
+
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: >-
+    This is a self-assessed submission. Build, policy, and Comparator/NanoDa
+    preflight results are recorded only for the exact commits on which they run.
+
+alignment:
+  namespace: "QuadraticCarleson.StatementSurface.PaperTheorems"
+  statements:
+    - source: "Theorem 1"
+      lean: "QuadraticCarleson.StatementSurface.PaperTheorems.lacunary_sub_log2_modular_failure"
+      module: "Solution.lean"
+      status: "proved"
+      note: "Failure below t log₂ t for the lacunary principal-value maximum."
+    - source: "Theorem 1"
+      lean: "QuadraticCarleson.StatementSurface.PaperTheorems.full_sub_log2_modular_failure"
+      module: "Solution.lean"
+      status: "proved"
+      note: "The corresponding full-modulation failure."
+    - source: "Theorem 2"
+      lean: "QuadraticCarleson.StatementSurface.PaperTheorems.full_LlogL_endpoint"
+      module: "Solution.lean"
+      status: "proved"
+      note: "The full-modulation L log L endpoint."
+    - source: "Theorem 2"
+      lean: "QuadraticCarleson.StatementSurface.PaperTheorems.lacunary_log2_squared_log4_endpoint"
+      module: "Solution.lean"
+      status: "proved"
+      note: "The lacunary L (log₂ L)² log₄ L endpoint."
+
+acknowledgements: >-
+  The project uses Lean, Mathlib, Comparator, and NanoDa.

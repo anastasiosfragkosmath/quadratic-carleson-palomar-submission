@@ -7,7 +7,7 @@ After `lake build`, run `lake env lean Verification.lean`.
 The printed dependencies of the completed results should contain only
 `propext`, `Classical.choice`, and `Quot.sound` (or a subset of these).
 This audit supplements, rather than replaces, whole-source compilation and
-the semantic comparison recorded in `docs/semantic-audit.md`.
+the semantic comparison recorded in `semantic-audit.md`.
 -/
 
 #print axioms QuadraticCarleson.PaperTheorems.lacunary_sub_log2_modular_failure

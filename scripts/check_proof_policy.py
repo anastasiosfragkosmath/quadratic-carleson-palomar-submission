@@ -23,10 +23,10 @@ CHALLENGE = ROOT / "Challenge.lean"
 SOLUTION = ROOT / "Solution.lean"
 COMPARATOR_CONFIG = ROOT / "comparator.json"
 CHALLENGE_THEOREMS = (
-    "QuadraticCarleson.PaperTheorems.lacunary_sub_log2_modular_failure",
-    "QuadraticCarleson.PaperTheorems.full_sub_log2_modular_failure",
-    "QuadraticCarleson.PaperTheorems.full_LlogL_endpoint",
-    "QuadraticCarleson.PaperTheorems.lacunary_log2_squared_log4_endpoint",
+    "QuadraticCarleson.StatementSurface.PaperTheorems.lacunary_sub_log2_modular_failure",
+    "QuadraticCarleson.StatementSurface.PaperTheorems.full_sub_log2_modular_failure",
+    "QuadraticCarleson.StatementSurface.PaperTheorems.full_LlogL_endpoint",
+    "QuadraticCarleson.StatementSurface.PaperTheorems.lacunary_log2_squared_log4_endpoint",
 )
 FORBIDDEN_SOURCE = (
     r"\b(sorry|admit|sorryAx|axiom|unsafe|implemented_by|extern|native_decide|"

@@ -1,0 +1,98 @@
+name: Comparator and NanoDa preflight
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  comparator:
+    name: Check the four Palomar statements
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Free runner disk space
+        run: |
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          df -h
+      - uses: ./.github/actions/setup-lean
+      - name: Get Mathlib build cache
+        run: lake exe cache get
+      - name: Build formalization and statement-comparison modules
+        run: lake build
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: "1.24.0"
+          cache: false
+      - name: Run the pinned Comparator and NanoDa preflight
+        env:
+          COMPARATOR_CACHE: ${{ runner.temp }}/quadratic-carleson-comparator
+        run: |
+          set -euo pipefail
+
+          repository_root="$GITHUB_WORKSPACE"
+          cache_root="$COMPARATOR_CACHE"
+          bin_dir="$cache_root/bin"
+          comparator_dir="$cache_root/comparator"
+          lean4export_dir="$cache_root/lean4export"
+          nanoda_dir="$cache_root/nanoda"
+          comparator_commit=575674928e239f5bc452aab72d1dd7b0f1326494
+          landrun_commit=811cfff51ceaf3d9843708aa6d22e9b84ccac8b4
+          nanoda_commit=68d5ca9db226849b41a6fff59d796ff19d0a8840
+
+          checkout_exact() {
+            local repository=$1
+            local destination=$2
+            local commit=$3
+            git clone --filter=blob:none "$repository" "$destination"
+            git -C "$destination" fetch --depth=1 origin "$commit"
+            git -C "$destination" checkout --detach "$commit"
+          }
+
+          submission_toolchain=$(tr -d '[:space:]' < "$repository_root/lean-toolchain")
+          lean4export_tag=${submission_toolchain#leanprover/lean4:}
+          lean4export_commit=$(git ls-remote --tags https://github.com/leanprover/lean4export.git \
+            "refs/tags/${lean4export_tag}^{}" | awk 'NR == 1 { print $1 }')
+          if [ -z "$lean4export_commit" ]; then
+            lean4export_commit=$(git ls-remote --tags https://github.com/leanprover/lean4export.git \
+              "refs/tags/${lean4export_tag}" | awk 'NR == 1 { print $1 }')
+          fi
+          if [ -z "$lean4export_commit" ]; then
+            echo "No lean4export release tag matches $submission_toolchain" >&2
+            exit 1
+          fi
+          echo "Using lean4export $lean4export_tag at $lean4export_commit"
+
+          mkdir -p "$bin_dir"
+          checkout_exact https://github.com/leanprover/comparator.git "$comparator_dir" "$comparator_commit"
+          checkout_exact https://github.com/leanprover/lean4export.git "$lean4export_dir" "$lean4export_commit"
+          checkout_exact https://github.com/robsimmons/nanoda_lib.git "$nanoda_dir" "$nanoda_commit"
+
+          GOBIN="$bin_dir" CGO_ENABLED=0 go install \
+            "github.com/zouuup/landrun/cmd/landrun@$landrun_commit"
+          (cd "$comparator_dir" && lake build comparator)
+          (cd "$lean4export_dir" && ELAN_TOOLCHAIN="$submission_toolchain" lake build lean4export)
+          cargo build --release --locked --manifest-path "$nanoda_dir/Cargo.toml"
+
+          chmod +x "$repository_root/scripts/landrun_passthrough.py"
+          cd "$repository_root"
+          COMPARATOR_LANDRUN="$repository_root/scripts/landrun_passthrough.py" \
+          PALOMAR_LANDRUN_REAL="$bin_dir/landrun" \
+          COMPARATOR_LEAN4EXPORT="$lean4export_dir/.lake/build/bin/lean4export" \
+          COMPARATOR_NANODA="$nanoda_dir/target/release/nanoda_bin" \
+          GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1 GIT_TERMINAL_PROMPT=0 \
+          LEAN_ABORT_ON_PANIC=1 \
+          lake env "$comparator_dir/.lake/build/bin/comparator" comparator.json

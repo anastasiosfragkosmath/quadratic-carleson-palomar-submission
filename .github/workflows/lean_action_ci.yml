@@ -1,0 +1,43 @@
+name: Lean build and policy checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # This development produces roughly 10 GB of temporary .lake artifacts.
+      # These directories are preinstalled tools on the disposable GitHub runner,
+      # not project files or GitHub cache contents.
+      - name: Free runner disk space
+        run: |
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          df -h
+      - name: Test proof-policy rejection behavior
+        run: python3 -B scripts/test_proof_policy.py
+      - name: Enforce no-placeholder source policy
+        run: python3 scripts/check_proof_policy.py --source-only
+      - uses: ./.github/actions/setup-lean
+      - name: Get Mathlib build cache
+        run: lake exe cache get
+      - name: Build formalization and statement-comparison modules
+        run: lake build
+      - name: Enforce explicit theorem axiom allowlist
+        run: python3 scripts/check_proof_policy.py

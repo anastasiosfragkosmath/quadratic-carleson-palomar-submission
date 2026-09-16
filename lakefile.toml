@@ -1,9 +1,9 @@
 name = "quadratic_carleson"
 version = "0.1.0"
 keywords = ["math"]
-# The normal build checks the completed formalization.  The separate
-# Challenge/Solution libraries are built only by the manual Comparator workflow.
-defaultTargets = ["QuadraticCarleson"]
+# A normal build covers the substantive formalization and the independent
+# Challenge/Solution statement-comparison pair.
+defaultTargets = ["QuadraticCarleson", "Challenge", "Solution"]
 
 [leanOptions]
 pp.unicode.fun = true # pretty-prints `fun a ↦ b`
