@@ -1,0 +1,12 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "QuadraticCarleson.PaperTheorems.lacunary_sub_log2_modular_failure",
+    "QuadraticCarleson.PaperTheorems.full_sub_log2_modular_failure",
+    "QuadraticCarleson.PaperTheorems.full_LlogL_endpoint",
+    "QuadraticCarleson.PaperTheorems.lacunary_log2_squared_log4_endpoint"
+  ],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": true
+}

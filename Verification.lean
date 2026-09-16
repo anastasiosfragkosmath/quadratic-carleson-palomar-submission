@@ -1,0 +1,44 @@
+import QuadraticCarleson
+
+/-!
+# Reproducible paper-facing dependency audit
+
+After `lake build`, run `lake env lean Verification.lean`.
+The printed dependencies of the completed results should contain only
+`propext`, `Classical.choice`, and `Quot.sound` (or a subset of these).
+This audit supplements, rather than replaces, whole-source compilation and
+the semantic comparison recorded in `docs/semantic-audit.md`.
+-/
+
+#print axioms QuadraticCarleson.PaperTheorems.lacunary_sub_log2_modular_failure
+#print axioms QuadraticCarleson.PaperTheorems.full_sub_log2_modular_failure
+#print axioms QuadraticCarleson.PaperTheorems.lacunary_counterexample_at_unit_height
+#print axioms QuadraticCarleson.PaperTheorems.full_counterexample_at_unit_height
+#print axioms QuadraticCarleson.PaperTheorems.full_LlogL_endpoint
+#print axioms QuadraticCarleson.PaperTheorems.lacunary_log2_squared_log4_endpoint
+#print axioms QuadraticCarleson.PaperTheorems.lacunary_not_weakOneOne
+#print axioms QuadraticCarleson.PaperTheorems.full_not_weakOneOne
+#print axioms QuadraticCarleson.PaperTheorems.principalValueMaxima_aemeasurable
+#print axioms QuadraticCarleson.PaperTheorems.finite_modulation_blocks_weakOneOne
+
+#print axioms QuadraticCarleson.PositiveEndpointsAERepresentative.full_principalValue_endpoint_aemeasurable
+#print axioms QuadraticCarleson.PositiveEndpointsAERepresentative.lacunary_principalValue_endpoint_aemeasurable
+#print axioms QuadraticCarleson.fourier_principalValueOneDiv
+#print axioms QuadraticCarleson.principalValueOneDiv_eq_FourierCandidate
+#print axioms QuadraticCarleson.offSupportPaperLemma
+#print axioms QuadraticCarleson.bohrSet_volume_real_comparable
+#print axioms QuadraticCarleson.bohrSet_inter_volume_le
+#print axioms QuadraticCarleson.dyadicBohrLogUnion_volume_real_ge
+#print axioms QuadraticCarleson.dyadicBohrLogUnion_volume_real_ge_uniform
+#print axioms QuadraticCarleson.weak11sparseStatement_proof
+#print axioms QuadraticCarleson.paperFixedHeightQuadraticMaximal_eLpNorm_decay
+#print axioms QuadraticCarleson.KaltonEndpoint.hasWeakL1Bound_tsum_paperLog
+#print axioms QuadraticCarleson.LacunaryFrozenBlockDirectResolved.hasUniformL0LogSquaredFrozenBlockWeakBounds
+#print axioms QuadraticCarleson.YoungFunction.bijOn_nonneg
+#print axioms QuadraticCarleson.YoungFunction.apply_nonnegOrderIso_symm
+#print axioms QuadraticCarleson.YoungFunction.nonnegOrderIso_symm_apply
+#print axioms QuadraticCarleson.hasSum_dyadicPsi
+#print axioms QuadraticCarleson.tsum_dyadicPsi
+#print axioms QuadraticCarleson.torusNorm_eq_abs_of_mem_Ico
+#print axioms QuadraticCarleson.torusNorm_isLeast_integerDistances
+#print axioms QuadraticCarleson.torusNorm_eq_iInf_abs_sub_int
